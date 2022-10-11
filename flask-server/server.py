@@ -1,6 +1,9 @@
+# from crypt import methods
 from gc import collect
+import numpy as np
+import pandas as pd
 import pymongo
-from flask import Flask, jsonify, redirect, render_template, session
+from flask import Flask, jsonify, redirect, render_template, session, request
 from flask_cors import CORS, cross_origin
 from functools import wraps
 import argparse
@@ -27,14 +30,6 @@ collection = db.login
 from user.models import User
 
 
-
-
-
-
-
-
-
-
 # Members API Route
 @app.route("/members")
 @cross_origin() 
@@ -49,30 +44,9 @@ def members():
         print(i["Name"]+" : "+i["Pass"])
     return thisdict
 
-
-@app.route("/login", methods=['POST'] )
-@cross_origin() 
-def login():
-    # act_input = request.json
-    # data = load(json.loads(request.data))
-    thisdict = {
-    
-    "value": True
-    }
-
-    myAccounts = collection.find({})
-    for i in myAccounts:
-        # if(i["Name"]==fname and i["Pass"]==fpass):
-        #     return True
-        print(i["Name"]+" : "+i["Pass"])
-    return thisdict    
-
-
-
-
 # ----------------------------------------------------------------------------------------
 
-#  Decorators
+#  Decorators ----------------------------------------------------------------------------
 def login_required(f):
     @wraps(f)
     def wrap(*arg, **kwargs):
@@ -83,7 +57,7 @@ def login_required(f):
     return wrap        
 
 
-#  Routes
+#  Routes  ----------------------------------------------------------------------------
 
 @app.route('/')
 @cross_origin() 
@@ -95,6 +69,8 @@ def home():
 @cross_origin() 
 def dashboard():
     return render_template('dashboard.html')    
+
+#  Routes For Login ---------------------------------------------------------------------    
 
 @app.route('/user/signup', methods=['POST'])
 @cross_origin() 
@@ -111,9 +87,44 @@ def signout():
 def loginUser():
     return User().login(), 200     
 
+#  Routes For Model Builder ------------------------------------------------------------- 
+
+data = pd.read_csv('./static/Cleaned_data.csv')
+import pickle
+
+pipe = pickle.load(open("./static/RidgeModel.pkl",'rb'))
+
+@app.route('/modelbuilder')
+@cross_origin() 
+def modelBuilder():
+    loactions = sorted(data['location'].unique())
+    # print(loactions)
+    return render_template('index.html', locations = loactions )  
+
+@app.route('/modelbuilder/predict', methods=['POST'])
+@cross_origin() 
+def predict():
+    location = request.form.get('location')
+    bhk = request.form.get('bhk')
+    bhk = float(bhk)
+    bath = request.form.get('bath')
+    bath = float(bath)
+    sqft = request.form.get('total_sqft')
+    
+    print(location, bhk, bath, sqft)
+    # input = pd.DataFrame([[location,sqft,bath,bhk]],columns=['location','total_sqft','bath','bhk'])
+    input = pd.DataFrame([[location,sqft,bath,bhk]],columns=['location','total_sqft','bath','bhk'])
+    prediction = pipe.predict(input)[0] * 100000
+
+    ans = str(np.round(prediction,2))
+
+    answer = {
+        "ans":ans,
+        "name":"name"
+    }
 
 
-
+    return answer
 
 if __name__ == "__main__":
    

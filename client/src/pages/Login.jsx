@@ -75,7 +75,7 @@ const Login = () => {
         if(response.data.name){
           console.log('Regular Login');
           // history.replace('/');
-          navigate('/about')
+          navigate('/modelBuilder')
         }
       })
       .catch((err) => {
@@ -108,11 +108,6 @@ const Login = () => {
               //   backgroundColor="current"
               boxShadow='md'
             >
-
-
-
-
-
               <FormControl>
                 <InputGroup>
                   <InputLeftElement

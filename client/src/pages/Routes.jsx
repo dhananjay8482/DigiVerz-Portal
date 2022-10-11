@@ -3,6 +3,7 @@ import React from "react";
 import LandingPage from "./LandingPage";
 import About from "./About";
 import Login from "./Login";
+import ModelBuilder from "../components/ModelBuilder";
 
 
 export default function Routess() {
@@ -13,6 +14,7 @@ export default function Routess() {
         {/* <Route exact path="/login" component={Login} /> */}
         <Route exact path="/about" element={<About />} />
         <Route exact path="/login" element={<Login />} />
+        <Route exact path="/modelBuilder" element={<ModelBuilder />} />
         {/* <Route
             exact
             path="/charity/:username"
