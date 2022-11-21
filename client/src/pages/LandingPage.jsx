@@ -1,26 +1,92 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect, useRef } from "react";
 
 import {
-  VStack,Heading, Box, Button, 
-  // Image,
-   Flex, Badge, Text} from '@chakra-ui/react';
+  Avatar,
+  Text,
+  Box,
+  Button,
+  chakra,
+  Flex,
+  FormControl,
+  Heading,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  Stack,
+  Image,
+  useColorMode,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import { SimpleGrid } from "@chakra-ui/react";
 
-import { Link } from 'react-router-dom'   
+import { Link, useNavigate } from "react-router-dom";
+import { FaLock, FaUserAlt } from "react-icons/fa";
+import axios from "axios";
+import landing1D from "../assets/landing1D.png";
+import landing1N from "../assets/landing1N.png";
 
-export default function LandingPage() {
+const CFaUserAlt = chakra(FaUserAlt);
+const CFaLock = chakra(FaLock);
+
+const LandingPage = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
+
+  const navigate = useNavigate();
+
   return (
-    <VStack>
-        <Box
-          p="5"
-          maxW="1000px"
-          borderWidth="1px"
-          marginTop={"20vh"}
-          borderColor={"lightteal"}
-        >
-            <h1>Landing page</h1>
-            <Link to="/login" ><Button>Login</Button></Link>
+    <Flex
+      flexDirection="column"
+      width="100wh"
+      height="100vh"
+      justifyContent="center"
+      alignItems="flex-start"
+    >
+      <Stack
+        flexDir="column"
+        mb="2"
+        justifyContent="center"
+        alignItems="flex-start"
+      >
+        <SimpleGrid columns={[1, null, 2]} spacing="50vh">
+          <Box mt={"7vh"} ml="2vh">
+            <Avatar bg="teal.500" />
+            <Heading color="teal.400">Get More Analytics From</Heading>
+            <Heading color="teal.400">Your Own Data</Heading>
+
+            <Link to="/login" >
+              <Button mt={"7vh"} ml={"-45vh"}  >Get Started</Button>
+            </Link>
+          </Box>
+
+  {/* --------------------------- Half Page ------------------------------------------ */}
+          <Box mt={"20px"}>
             
-        </Box>
-    </VStack>
-  )
-}
+            {colorMode === "light" ? (
+              <Image
+                ml={"-1rem"}
+                mt={"2rem"}
+                boxSize="400px"
+                objectFit="cover"
+                src={landing1D}
+                alt="Login"
+              />
+            ) : (
+              <Image
+                ml={"-1rem"}
+                mt={"2rem"}
+                boxSize="400px"
+                objectFit="cover"
+                src={landing1N}
+                alt="Login"
+              />
+            )}
+          </Box>
+
+        </SimpleGrid>
+      </Stack>
+    </Flex>
+  );
+};
+
+export default LandingPage;

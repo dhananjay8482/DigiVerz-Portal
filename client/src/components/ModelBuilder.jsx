@@ -1,10 +1,10 @@
 import React, { Component, useState, useEffect, useRef } from "react";
-
 import {
   Avatar,
   Box,
   Button,
-  chakra,Image ,
+  chakra,
+  Image,
   Flex,
   FormControl,
   Heading,
@@ -14,7 +14,12 @@ import {
   InputRightElement,
   Stack,
   SimpleGrid,
-  Select, Text,Fade, ScaleFade, Collapse,useDisclosure 
+  Select,
+  Text,
+  Fade,
+  ScaleFade,
+  Collapse,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -26,9 +31,8 @@ import {
   FaShower,
   FaHSquare,
 } from "react-icons/fa";
-import houseImage from "../assets/house.png"
+import houseImage from "../assets/house.png";
 import axios from "axios";
-
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -291,7 +295,7 @@ const ModelBuilder = () => {
   const [sqft, setSqft] = useState("");
 
   const navigate = useNavigate();
-  const { isOpen, onToggle } = useDisclosure()
+  const { isOpen, onToggle } = useDisclosure();
 
   var formData = new FormData();
   formData.append("location", location);
@@ -327,55 +331,79 @@ const ModelBuilder = () => {
 
   return (
     <SimpleGrid columns={[2, null, 2]} spacing="20px">
-      <Box mt={"5rem"}  >
-        <Text fontFamily={'New Century Schoolbook, TeX Gyre Schola, serif'} as='b' fontSize='7xl'>
-            BENGLORE   </Text><br />
-        <Text p={'1rem'} style={{ background:"orange" }} as='mark' fontFamily={'New Century Schoolbook, TeX Gyre Schola, serif'}  fontSize='7xl'>
-        HOUSE PRICE </Text><br />
-        <Text fontFamily={'New Century Schoolbook, TeX Gyre Schola, serif'} as='b' fontSize='7xl'>
-        PREDICTOR </Text><br />
+      <Box mt={"5rem"}>
+        <Text
+          fontFamily={"New Century Schoolbook, TeX Gyre Schola, serif"}
+          as="b"
+          fontSize="5xl"
+        >
+          BENGLORE{" "}
+        </Text>
+        <br />
+        <Text
+          p={"1rem"}
+          style={{ background: "orange" }}
+          as="mark"
+          fontFamily={"New Century Schoolbook, TeX Gyre Schola, serif"}
+          fontSize="5xl"
+        >
+          HOUSE PRICE{" "}
+        </Text>
+        <br />
+        <Text
+          fontFamily={"New Century Schoolbook, TeX Gyre Schola, serif"}
+          as="b"
+          fontSize="5xl"
+        >
+          PREDICTOR{" "}
+        </Text>
+        <br />
 
         <SimpleGrid columns={[2, null, 2]} spacing="10rem">
-            <Box >
-                <Image
-                    ml={'10rem'}
-                    mt={'2rem'}
-                    boxSize='250px'
-                    objectFit='cover'
-                    src={houseImage}
-                    alt='House'
-                />
-            </Box>  
-            <Box mt={'2rem'}>
-                <Text  fontSize='xl'>
-                # Try to fill required data as per your requirement and our model will Let you know Predicted Value.   </Text><br />
-                <Button ml={'-13rem'} onClick={onToggle}>How To Use</Button>
+          <Box>
+            <Image
+              ml={"10rem"}
+              mt={"2rem"}
+              boxSize="200px"
+              objectFit="cover"
+              src={houseImage}
+              alt="House"
+            />
+          </Box>
+          <Box mt={"2rem"}>
+            <Text fontSize="xl">
+              # Try to fill required data as per your requirement and our model
+              will Let you know Predicted Value.{" "}
+            </Text>
+            <br />
+            <Button ml={"-7rem"} onClick={onToggle}>
+              How To Use
+            </Button>
             <Collapse in={isOpen} animateOpacity>
-                <Box
-                p='20px'
-                color='white'
-                mt='4'
-                mb='8'
-                bg='teal.500'
-                rounded='md'
-                shadow='md'
-                >
-                <p> Put The Necessory Information regarding House inside the Form like :</p>
+              <Box
+                p="3px"
+                color="white"
+                mt="4"
+                mb="8"
+                bg="teal.500"
+                rounded="md"
+                shadow="md"
+              >
+                <p>
+                  {" "}
+                  Put The Necessory Information regarding House inside the Form
+                  like :
+                </p>
                 <p> * Location of House</p>
                 <p> * Number of BHK </p>
                 <p> * Number of Bathrooms</p>
                 <p> * And Area of House in Square feets</p>
                 <p> At the End Hit the 'Click To Predict' Button... </p>
-
-                </Box>
+              </Box>
             </Collapse>
-            </Box>    
-            
-        </SimpleGrid>   
-       </Box>
-
-
-
+          </Box>
+        </SimpleGrid>
+      </Box>
 
       {/* Benglore Buildeing Price predictor */}
 
@@ -515,17 +543,35 @@ const ModelBuilder = () => {
                 >
                   Tap To Predict
                 </Button>
+                <Link to="/modelBuilder/history">
+                  <Button
+                    borderRadius={20}
+                    variant="solid"
+                    colorScheme="teal"
+                    width="full"
+                  >
+                    View History
+                  </Button>
+                </Link>
               </Stack>
             </form>
           </Box>
-
         </Stack>
         <br />
 
         {value ? (
           <Box>
-            <Text  p={'1rem'} m={'2rem'} as='b' style={{ background:"orange", color:"black" }}  fontFamily={'New Century Schoolbook, TeX Gyre Schola, serif'}  fontSize='4xl'>
-            Predicted Value : {value}</Text><br />
+            <Text
+              p={"1rem"}
+              m={"2rem"}
+              as="b"
+              style={{ background: "orange", color: "black" }}
+              fontFamily={"New Century Schoolbook, TeX Gyre Schola, serif"}
+              fontSize="4xl"
+            >
+              Predicted Value : {value}
+            </Text>
+            <br />
           </Box>
         ) : (
           <h1></h1>

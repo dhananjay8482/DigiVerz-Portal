@@ -7,6 +7,8 @@ import Navbar from './pages/Navbar';
 import About from './pages/About';
 import LandingPage from './pages/LandingPage';
 import Routess from './pages/Routes';
+import "./components/EDAUploadCSV.css"
+import "./components/EDAResult.css"
 
 function App() {
 

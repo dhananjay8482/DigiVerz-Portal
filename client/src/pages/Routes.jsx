@@ -4,6 +4,10 @@ import LandingPage from "./LandingPage";
 import About from "./About";
 import Login from "./Login";
 import ModelBuilder from "../components/ModelBuilder";
+import ModelBuilderHistory from "../components/ModelBuilderHistory";
+import EDAUploadCSV from "../components/EDAUploadCSV";
+import EDAResult from "../components/EDAResult";
+
 
 
 export default function Routess() {
@@ -15,6 +19,9 @@ export default function Routess() {
         <Route exact path="/about" element={<About />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/modelBuilder" element={<ModelBuilder />} />
+        <Route exact path="/modelBuilder/history" element={<ModelBuilderHistory />} />
+        <Route exact path="/EDA/uploadCSV" element={<EDAUploadCSV />} />
+        <Route exact path="/EDA/result" element={<EDAResult />} />
         {/* <Route
             exact
             path="/charity/:username"
